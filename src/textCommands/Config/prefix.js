@@ -9,6 +9,7 @@ module.exports = {
      callback: async (client, message, args) => {
           let data = await prefixModel.findOne({ guildId: message.guildId });
           const newPrefix = args[0];
+          const oldPrefix = data.prefix;
           if (data) {
                data.prefix = newPrefix;
           } else {
@@ -16,7 +17,7 @@ module.exports = {
           }
           await data.save();
 
-          await message.reply("Đã thay đổi prefix cho máy chủ hiện tại...");
+          await message.reply(`Đã thay đổi prefix cho máy chủ hiện tại từ \`${oldPrefix}\` thành \`${newPrefix}\``);
 
      }
 }

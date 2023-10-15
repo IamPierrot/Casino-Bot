@@ -31,6 +31,8 @@ module.exports = async (client, message) => {
 
           if (!commandObject) return;
 
+          if (commandObject.adminOnly && !configure.opt.idDev?.includes(message.author.id)) return message.reply("Bạn không có quyền dùng lệnh này!");
+
           if (commandObject.voiceChannel) {
                if (!message.member.voice.channel) return await message.reply({ embeds: [new EmbedBuilder().setColor('#ff0000').setDescription(`❌ | Bạn đang không ở trong phòng Voice`)], ephemeral: true, })
                if (message.guild.members.me.voice.channel && message.member.voice.channel.id !== message.guild.members.me.voice.channel.id) return await message.reply({ embeds: [new EmbedBuilder().setColor('#ff0000').setDescription(`❌ | Bạn đang không ở cùng phòng voice với tui! `)], ephemeral: true, })

@@ -39,9 +39,13 @@ module.exports = async ({ client, interaction, values }) => {
           }
 
           const emoji = {
+               "Admin": "<:Moderators:1129122776800821259>",
                "Level": ':green_book:',
-               "Config": ':tools:',
+               "Config": '<:mod:1129124907511459900>',
                "Music" : ':cd:',
+               "Economy": '<a:coin_flip:1163073855540187177>',
+               "Lottery": '<:sunset_ticket:1163103914745397328>',
+               "Game": '<:die_dice_d671:1163103917979213946>'
           }
 
 

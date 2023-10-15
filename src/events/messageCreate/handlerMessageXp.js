@@ -23,9 +23,7 @@ module.exports = async (client, message) => {
 
                const generatedXp = Math.floor(Math.random() * getXpDefault);
                const generatedXp2 = Math.floor(Math.random() * configure.levelSystems.extraXP);
-               const nextXP = chatData.level * 2 * 250;
-               chatData.nextLevel = nextXP;
-               await chatData.save();
+             
 
                const messageContents = message.content.split(" ");
                if (talkedRecently.get(message.author.id) || messageContents.length < 2) {
@@ -38,9 +36,15 @@ module.exports = async (client, message) => {
                     }
                     chatData.totalText += messageContents.length;
 
-                    if (chatData.xp >= nextXP) {
+                    let nextXP = chatData.level * 2 * 250;
+                    
+                    while (chatData.xp >= nextXP) {
+                         
                          chatData.xp = chatData.xp - nextXP;
                          chatData.level++;
+                         nextXP = chatData.level * 2 *250;
+                         chatData.nextLevel = nextXP;
+
                          const levelEmbeds = new EmbedBuilder()
                               .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                               .setColor("Random")

@@ -9,35 +9,38 @@ module.exports = {
 
      callback: async (client, message, args) => {
 
+          const commandFolders = getAllFile(path.join(__dirname, '..'), true)
+               .map((value) => value.split("\\").pop().split('.').shift());
+          function createSelectMenuOption(categoryName) {
+               let result = [];
+               for (const category of categoryName) {
+                    const optionMenu = new StringSelectMenuOptionBuilder()
+                         .setDescription(`Xem các lệnh về ${category}!`)
+                         .setLabel(category)
+                         .setValue(category)
+                    result.push(optionMenu);
+               }
+               return result
+          }
+          const emoji = {
+               "Config": '<:mod:1129124907511459900>',
+               "Level": ':green_book:',
+               "Music": ':cd:',
+               "Economy": '<a:coin_flip:1163073855540187177>',
+               "Admin": '<:Moderators:1129122776800821259>',
+               "Lottery": '<:sunset_ticket:1163103914745397328> ',
+               "Game": '<:die_dice_d671:1163103917979213946>'
+          };
+
+
           const menu = new StringSelectMenuBuilder()
                .setCustomId('help')
                .setPlaceholder('Help menu')
                .setMinValues(1)
                .setMaxValues(1)
-               .addOptions(
-                    new StringSelectMenuOptionBuilder()
-                         .setDescription("Xem các lệnh về level!")
-                         .setLabel('Level')
-                         .setValue('Level'),
-                    new StringSelectMenuOptionBuilder()
-                         .setDescription('Xem các lệnh về config!')
-                         .setLabel('Config')
-                         .setValue('Config'),
-                    new StringSelectMenuOptionBuilder()
-                         .setDescription("Xem các lệnh về music!")
-                         .setLabel('Music')
-                         .setValue('Music')
-               );
+               .addOptions(createSelectMenuOption(commandFolders));
           const row1 = new ActionRowBuilder().addComponents(menu);
-
-          const commandFolders = getAllFile(path.join(__dirname, '..'), true)
-               .map((value) => value.split("\\").pop().split('.').shift());
-
-          const emoji = {
-               "Config": ':tools:',
-               "Level": ':green_book:',
-               "Music": ':cd:'
-          };
+          
           const helpString = commandFolders.map((value) => {
                return `> ${emoji[value]} \`:\` **${value}** `
           }).join("\n");
@@ -45,7 +48,7 @@ module.exports = {
           const embed = new EmbedBuilder()
                .setColor('Fuchsia')
                .setAuthor({ name: "BẢNG LỆNH LOLI BOT" })
-               .setDescription(`Chào mừng ${message.author.toString()} đến với thiên đường ||LOLI||. \n Bot được phát triển bởi <@479182625764802560>`)
+               .setDescription(`Chào mừng ${message.author.toString()} đến với sở thú||LOLI||. \n Bot được phát triển bởi <@479182625764802560> và <@874321270437728257>`)
                .addFields([
                     {
                          name: `- Các loại lệnh của Bot \n `,
