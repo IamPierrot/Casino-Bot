@@ -1,0 +1,38 @@
+{
+     "MONGO": "mongodb+srv://pierrot:catdog123@clusterdiscord.ev2vzrq.mongodb.net/?retryWrites=true&w=majority",
+     "app": {
+          "token": "MTE0MzA2NTM4NjY3NDMwMzA2MQ.GRAcyX.rt96yun7j2NZmJ1ESd1R5VNk4PP3viCnUxOPFI",
+          "global": true,
+          "guild": "",
+          "ExtraMessages": false,
+          "loopMessage": false,
+          "client": "1140305763215093842"
+     },
+     "opt": {
+          "idDev": [
+               "Ids of dev"
+          ],
+          "DJ": {
+               "enable": true,
+               "roleName": "The name of role"
+          },
+          "maxVol": 100,
+          "spotifyBridge": false,
+          "volume": 75,
+          "leaveOnEmpty": false,
+          "leaveOnEmptyCooldown": 30000,
+          "leaveOnEnd": false,
+          "leaveOnEndCooldown": false,
+          "discordPlayer": {
+               "ytdlOptions": {
+                    "quality": "highestaudio",
+                    "highWaterMark": 33554432
+               }
+          }
+     },
+     "levelSystems": {
+          "xp": 10,
+          "cooldown": 2000,
+          "extraXP": 100
+     }
+}
