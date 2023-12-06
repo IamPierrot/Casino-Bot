@@ -5,7 +5,7 @@ module.exports = async ({ interaction, queue }) => {
      const noMusic = new EmbedBuilder()
           .setAuthor({ name: 'Không có gì đang phát ấy ? thử lại ikkk.... ❌' })
 
-     if (!queue || !queue.isPlaying()) return await interaction.reply({ embeds: [noMusic] });
+     if (!queue || !queue.isPlaying()) return await interaction.editReply({ embeds: [noMusic] });
 
      queue.setRepeatMode(QueueRepeatMode.OFF);
      const success = queue.node.skip();
@@ -13,5 +13,5 @@ module.exports = async ({ interaction, queue }) => {
      const skipEmbed = new EmbedBuilder()
           .setAuthor({ name: `⏭ Đã bỏ qua bài nhạc đang phát ${queue.currentTrack.title} ` });
 
-     await interaction.reply({ embeds: [skipEmbed] });
+     await interaction.editReply({ embeds: [skipEmbed] });
 }    

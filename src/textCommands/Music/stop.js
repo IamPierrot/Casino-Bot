@@ -3,7 +3,7 @@ const { useQueue } = require('discord-player');
 
 module.exports = {
      name: 'stop',
-     description: 'cho em cook khỏi voice',
+     description: 'dừng player đang phát',
      voiceChannel: false,
 
      callback: async (client, message, args) => {

@@ -5,7 +5,7 @@ module.exports = async ({ interaction, queue }) => {
      const noMusic = new EmbedBuilder()
           .setAuthor({ name: 'Không có gì đang phát ấy ? thử lại ikkk.... ❌' })
 
-     if (!queue || !queue.isPlaying()) return await interaction.reply({ embeds: [noMusic] });
+     if (!queue || !queue.isPlaying()) return await interaction.editReply({ embeds: [noMusic] });
      
      queue.delete();
 
@@ -13,6 +13,6 @@ module.exports = async ({ interaction, queue }) => {
           .setColor('#b72563')
           .setAuthor({ name: 'Nhà ngươi đã cho ta ngừng hát 🤬', iconURL: interaction.user.avatarURL() })
 
-     await interaction.reply({ embeds: [stopEmbed] });
+     await interaction.editReply({ embeds: [stopEmbed] });
 
 }

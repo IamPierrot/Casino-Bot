@@ -3,7 +3,7 @@ const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
      name: 'history',
-     description: 'Xem lại lịch sử bài hát em đã hát',
+     description: 'xem lại lịch sử phát',
      voiceChannel: true,
 
      callback: async (client, message) => {
@@ -13,17 +13,14 @@ module.exports = {
 
           const tracks = queue.history.tracks.toArray();
 
-          if (queue.history.size > 10) {
-               queue.history.clear();
-          }
+          if (queue.history.size > 10) queue.history.clear();
 
-
-          let description = tracks
+          const description = tracks
                .slice(0, 20)
                .map((track, index) => { return `**${index + 1}.** [${track.title}](${track.url}) ` })
                .join('\r\n\r\n');
 
-          let HistoryEmbed = new EmbedBuilder()
+          const HistoryEmbed = new EmbedBuilder()
                .setAuthor({ name: `LỊCH SỬ HÀNG CHỜ ĐÃ PHÁT`, iconURL: message.author.displayAvatarURL() })
                .setDescription(description)
                .setColor('#2f3136')

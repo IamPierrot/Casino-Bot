@@ -1,21 +1,19 @@
 {
      "MONGO": "mongodb+srv://pierrot:catdog123@clusterdiscord.ev2vzrq.mongodb.net/?retryWrites=true&w=majority",
      "app": {
-          "token": "MTE0MzA2NTM4NjY3NDMwMzA2MQ.GRAcyX.rt96yun7j2NZmJ1ESd1R5VNk4PP3viCnUxOPFI",
+          "token": "MTE0MDMwNTc2MzIxNTA5Mzg0Mg.GLd-Fb.HKlsYj26G8HEB-aU4jDq9om7dzZeRMz2M6gt5k",
           "global": true,
           "guild": "",
           "ExtraMessages": false,
           "loopMessage": false,
-          "client": "1140305763215093842"
+          "client": "1140305763215093842",
+          "prefix": "nqgm"
      },
      "opt": {
           "idDev": [
-               "Ids of dev"
+               "874321270437728257",
+               "479182625764802560"
           ],
-          "DJ": {
-               "enable": true,
-               "roleName": "The name of role"
-          },
           "maxVol": 100,
           "spotifyBridge": false,
           "volume": 75,

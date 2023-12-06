@@ -4,9 +4,8 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = {
      name: 'forcestop',
      description: 'bắt buộc dừng bài đang phát',
-     DJPermissions: false,
+     DJPermissions: true,
      voiceChannel: false,
-     adminOnly: true,
 
      /**
       * 

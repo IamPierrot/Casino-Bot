@@ -12,7 +12,7 @@ module.exports = async ({ interaction, queue }) => {
           .setAuthor({ name: 'Không có gì đang phát ấy ? thử lại ikkk.... ❌' })
 
      if (!queue || !queue.isPlaying()) {
-          await interaction.reply({ embeds: [noMusic] });
+          await interaction.editReply({ embeds: [noMusic] });
 
 
      } else {
@@ -35,7 +35,7 @@ module.exports = async ({ interaction, queue }) => {
           const loopEmbed = new EmbedBuilder()
                .setDescription(`Thiết lập chế độ : **${methods[repeatMode]}** ✅`)
 
-          await interaction.reply({ embeds: [loopEmbed], ephemeral: false });
+          await interaction.editReply({ embeds: [loopEmbed], ephemeral: false });
      }
 
 

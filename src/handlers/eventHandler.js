@@ -2,7 +2,8 @@ const path = require('path');
 const getAllFiles = require('../utils/getAllFiles.js');
 
 module.exports = (client) => {
-     const eventFolders = getAllFiles(path.join(__dirname, '..', 'events'), true);
+     try {
+          const eventFolders = getAllFiles(path.join(__dirname, '..', 'events'), true);
 
      for (const eventFolder of eventFolders) {
           const eventFiles = getAllFiles(eventFolder);
@@ -18,4 +19,8 @@ module.exports = (client) => {
                }
           });
      }
+     } catch (error) {
+          console.log("There was an error in event handler: ", error);
+     }
+     
 };

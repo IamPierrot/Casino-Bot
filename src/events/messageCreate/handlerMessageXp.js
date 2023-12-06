@@ -3,18 +3,13 @@ const chatLevelModel = require('../../database/models/chatLvModel');
 const Roles = require('../../database/data/roles.json');
 const extraChannelModel = require('../../database/models/extraChannels');
 
-/**
- * 
- * @param {import('discord.js').Message} message 
- */
-
 const talkedRecently = new Map();
-module.exports = async (client, message) => {
+module.exports = async (client, message ) => {
      try {
           if (message.author.bot || !message.guild || message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
           let chatData = await chatLevelModel.findOne({ guildId: message.guildId, userId: message.author.id });
           let extraChannelData = await extraChannelModel.findOne({ guildId: message.guildId });
-
+          
           if (chatData) {
                const lvl = toString(chatData.level);
 
@@ -49,7 +44,7 @@ module.exports = async (client, message) => {
                               .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                               .setColor("Random")
                               .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
-                              .setDescription(`**Congratulations** ${message.author}! You have now leveled up to **level ${chatData.level}** \n Tặng bạn quả role vjp pro`)
+                              .setDescription(`**Chúc mừng** ${message.author}! Bạn đẵ lên **Cấp ${chatData.level}** \n Tặng bạn quả role vjp pro`)
                               .setTimestamp()
 
                          await message.channel.send({ embeds: [levelEmbeds] });
@@ -61,7 +56,7 @@ module.exports = async (client, message) => {
                }
                if (lvl % 5 === 0) {
                     if (message.member.roles.cache.get(Roles.ChatRoles[lvl]) && Roles.ChatRoles[lvl]) return;
-                    message.member.roles.add(Roles.ChatRoles[lvl]);
+                    await message.member.roles.add(Roles.ChatRoles[lvl]);
                }
 
           } else {
@@ -72,6 +67,6 @@ module.exports = async (client, message) => {
           await chatData.save();
 
      } catch (error) {
-          console.log("There was an error in messageCreate: ", error);
+          console.log("There was an error in handler XP: ", error);
      }
 }

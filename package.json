@@ -4,7 +4,7 @@
     "@discordjs/voice": "^0.16.0",
     "axios": "^1.5.1",
     "discord-player": "^6.6.4",
-    "discord.js": "^14.12.1",
+    "discord.js": "^14.14.1",
     "distube": "^4.1.0",
     "ffmpeg-static": "^5.2.0",
     "genius-lyrics": "^4.4.6",

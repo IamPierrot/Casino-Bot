@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require('discord.js');
 module.exports = async ({ client, interaction, queue }) => {
-    if (!queue || !queue.isPlaying()) return interaction.reply({ content: `Mình đang không hát bài nào mà? ❌`, ephemeral: true });
+    if (!queue || !queue.isPlaying()) return interaction.editReply({ content: `Mình đang không hát bài nào mà? ❌`, ephemeral: true });
 
     const methods = ['','🔁', '🔂'];
 
@@ -18,5 +18,5 @@ module.exports = async ({ client, interaction, queue }) => {
         .setTimestamp()
         .setFooter({ text: 'Âm nhạc đi trước - Tình yêu theo sau ❤', iconURL: interaction.member.avatarURL({ dynamic: true }) })
 
-    await interaction.reply({ embeds: [embed], ephemeral: false });
+    await interaction.editReply({ embeds: [embed], ephemeral: false });
 }

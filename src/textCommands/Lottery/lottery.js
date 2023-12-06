@@ -17,12 +17,12 @@ module.exports = {
      callback: async (client, message, args) => {
           const price = 10000;
 
-          let amount = parseInt(args[0]) ? parseInt(args[0]) : 10;
-          if (amount < 0) return
-          if (amount > 10) return message.reply('Bạn chỉ có thể mua tối đa 10 vé')
+          const amount = parseInt(args[0]) ? parseInt(args[0]) : 1000;
+          if (amount < 0) return message.reply('Rốt cuộc muốn mua nhiêu?')
+          // if (amount > 10) return message.reply('Bạn chỉ có thể mua tối đa 10 vé')
 
           let userData = await xoSoUserModel.findOne({
-               userId: message.author.id 
+               userId: message.author.id
           })
           let data = await xoSoModel.findOne()
           if (!data) data = new xoSoModel({ userId: [] })
@@ -31,12 +31,15 @@ module.exports = {
 
           if (!userData) userData = new xoSoUserModel({ userId: message.author.id, soLuong: [] })
 
-          let arr = userData.soLuong
+          const arr = userData.soLuong
 
-          if (arr.length >= 10) return message.reply('Bạn đã sở hữu 10 vé số rồi!')
+          // if (arr.length >= 10) return message.reply('Bạn đã sở hữu 10 vé số rồi!')
+
+          if (await client.xemTien(message.author.id) < (price * amount)) return message.reply("Không có tiền đòi chơi vé số!!!")
+          await client.truTien(message.author.id, price * amount)
 
           for (let i = 0; i < amount; i++) {
-               arr.push(Math.floor(Math.random() * (1e6 - 1e5)) + 1e5); // ok r
+               arr.push(Math.floor(Math.random() * (1e6 - 1e5)) + 1e5);
           }
           await userData.save();
           await data.save();

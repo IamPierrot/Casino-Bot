@@ -3,7 +3,8 @@ const {} = require('discord.js');
 module.exports = {
      name: 'give',
      description: "Chuyển tiền cho người khác!",
-     aliases: [],
+     tips: "+ @ten + số tiền",
+     aliases: ['pay'],
      /**
       * 
       * @param {import('discord.js').Client} client 

@@ -3,7 +3,7 @@ const { QueueRepeatMode, useQueue } = require('discord-player');
 
 module.exports = {
      name: 'skip',
-     description: 'bỏ qua bài em đang hát',
+     description: 'bỏ qua bài hát hiện tại',
      voiceChannel: false,
 
      /**

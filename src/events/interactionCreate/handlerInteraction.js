@@ -1,4 +1,3 @@
-const getLocalCommands = require('../../utils/getLocalCommands.js');
 const { EmbedBuilder } = require('discord.js');
 /**
  * 
@@ -10,8 +9,9 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = async (client, interaction) => {
      try {
           if (!interaction.isChatInputCommand()) return;
+          await interaction.deferReply();
 
-          const localCommands = getLocalCommands();
+          const localCommands = client.getSlashCommands();
 
           const commandObject = await localCommands.find(
                (cmd) => cmd.name === interaction.commandName
@@ -21,15 +21,15 @@ module.exports = async (client, interaction) => {
 
           if (commandObject.voiceChannel) {
                if (!interaction.member.voice.channel) {
-                    return await interaction.reply({
-                         embeds: [new EmbedBuilder().
-                              setColor('#ff0000')
+                    return await interaction.editReply({
+                         embeds: [new EmbedBuilder()
+                              .setColor('#ff0000')
                               .setDescription(`❌ | Bạn đang không ở trong phòng Voice`)], ephemeral: true,
                     })
 
                }
                if (interaction.guild.members.me.voice.channel && interaction.member.voice.channel.id !== interaction.guild.members.me.voice.channel.id) {
-                    return await interaction.reply({
+                    return await interaction.editReply({
                          embeds: [new EmbedBuilder()
                               .setColor('#ff0000')
                               .setDescription(`❌ | Bạn đang không ở cùng phòng voice với tui! `)], ephemeral: true,
@@ -40,7 +40,7 @@ module.exports = async (client, interaction) => {
           if (commandObject.permissionsRequired?.length) {
                for (const permission of commandObject.permissionsRequired) {
                     if (!interaction.member.permissions.has(permission)) {
-                         interaction.reply({
+                         interaction.editReply({
                               content: 'Not enough permissions.',
                               ephemeral: true,
                          });
@@ -54,7 +54,7 @@ module.exports = async (client, interaction) => {
                     const bot = interaction.guild.members.me;
 
                     if (!bot.permissions.has(permission)) {
-                         interaction.reply({
+                         interaction.editReply({
                               content: "I don't have enough permissions.",
                               ephemeral: true,
                          });

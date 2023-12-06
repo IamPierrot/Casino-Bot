@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const voiceLevelSchema = new mongoose.Schema({
      userId: String,
      guildId: String,
@@ -16,7 +15,7 @@ const voiceLevelSchema = new mongoose.Schema({
      totalTime: {
           type: Number,
           default: 0
-     }
+     },
 });
 
 const voiceLevelModel = mongoose.model("voiceLevel", voiceLevelSchema);

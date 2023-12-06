@@ -1,17 +1,17 @@
 const { useQueue , QueueRepeatMode} = require('discord-player');
 const { EmbedBuilder } = require('discord.js');
+
 module.exports = {
      name: 'forceskip',
-     description: 'hehe',
-     DJPermissions: false,
+     description: 'bắt buộc skip bài đang phát',
+     DJPermissions: true,
      voiceChannel: false,
-     adminOnly: true,
 
      /**
       * 
       * @param {import('discord.js').Client} client 
       * @param {import('discord.js').Message} message 
-      * @param {*} args 
+      * @param {*} args
       */
      callback: async (client, message, args) => {
           try {

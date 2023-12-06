@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require('discord.js');
 module.exports = async ({ interaction, queue }) => {
-     if (!queue || queue.history.tracks.toArray().length == 0) return interaction.reply({ content: `Không có bài nhạc nào đã phát trước đây....`, ephemeral: true });
+     if (!queue || queue.history.tracks.toArray().length == 0) return interaction.editReply({ content: `Không có bài nhạc nào đã phát trước đây....`, ephemeral: true });
 
      const tracks = queue.history.tracks.toArray();
 
@@ -19,6 +19,6 @@ module.exports = async ({ interaction, queue }) => {
           .setFooter({ text: 'Âm nhạc đi trước - Tình yêu theo sau ❤️', iconURL: interaction.user.avatarURL({ dynamic: true }) })
 
 
-     await interaction.reply({ embeds: [HistoryEmbed] });
+     await interaction.editReply({ embeds: [HistoryEmbed] });
 
 }

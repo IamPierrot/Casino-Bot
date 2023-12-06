@@ -1,16 +1,21 @@
 const { EmbedBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ActionRowBuilder } = require('discord.js');
-const getAllFile = require('../../utils/getAllFiles');
 const path = require('path');
+const sourceEmoji = require('../../database/data/emoji.json');
+
 
 module.exports = {
      name: 'help',
      description: "xem tất cả lệnh mà em đang có",
+     aliases: ['cuutoivoi', 'cuutoi', 'h'],
      showHelp: false,
 
      callback: async (client, message, args) => {
+          const emoji = sourceEmoji.emoji;
+          const emojiId = sourceEmoji.emojiId;
 
-          const commandFolders = getAllFile(path.join(__dirname, '..'), true)
+          const commandFolders = client.getFiles(path.join(__dirname, '..'), true)
                .map((value) => value.split("\\").pop().split('.').shift());
+               
           function createSelectMenuOption(categoryName) {
                let result = [];
                for (const category of categoryName) {
@@ -18,20 +23,14 @@ module.exports = {
                          .setDescription(`Xem các lệnh về ${category}!`)
                          .setLabel(category)
                          .setValue(category)
+                    if (emojiId?.[category]) {
+                         optionMenu.setEmoji(emojiId?.[category])
+                    }
+                    
                     result.push(optionMenu);
                }
                return result
           }
-          const emoji = {
-               "Config": '<:mod:1129124907511459900>',
-               "Level": ':green_book:',
-               "Music": ':cd:',
-               "Economy": '<a:coin_flip:1163073855540187177>',
-               "Admin": '<:Moderators:1129122776800821259>',
-               "Lottery": '<:sunset_ticket:1163103914745397328> ',
-               "Game": '<:die_dice_d671:1163103917979213946>'
-          };
-
 
           const menu = new StringSelectMenuBuilder()
                .setCustomId('help')
@@ -44,10 +43,11 @@ module.exports = {
           const helpString = commandFolders.map((value) => {
                return `> ${emoji[value]} \`:\` **${value}** `
           }).join("\n");
-
+          const prefixData = await client.getPrefix(message.guildId);
           const embed = new EmbedBuilder()
                .setColor('Fuchsia')
                .setAuthor({ name: "BẢNG LỆNH LOLI BOT" })
+               .setTitle(`Prefix thay thế của máy chủ ${prefixData ? prefixData.prefix : 'Không có' }`)
                .setDescription(`Chào mừng ${message.author.toString()} đến với sở thú||LOLI||. \n Bot được phát triển bởi <@479182625764802560> và <@874321270437728257>`)
                .addFields([
                     {
@@ -58,7 +58,9 @@ module.exports = {
                ])
                .setThumbnail(client.user.displayAvatarURL())
                .setTimestamp()
-               .setFooter({ text: 'Yêu em là chuyện của tôi 💔' });
+               .setFooter({ text: `Prefix của bot là ${configure.app.prefix}` });
+
+          client.components.set(message.author.id, menu.data.custom_id);
 
           await message.reply({ embeds: [embed], components: [row1] });
      },

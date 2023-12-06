@@ -4,7 +4,7 @@ const { useMainPlayer, QueryType } = require('discord-player');
 
 module.exports = {
      name: 'playlist',
-     description: 'bắt đầu 1 bài hát',
+     description: 'bật 1 playlist youtube',
      aliases: ['pl'],
      voiceChannel: true,
      /**
@@ -41,16 +41,16 @@ module.exports = {
           try {
                if (!queue.connection) await queue.connect(message.member.voice.channel);
           } catch {
-               await player.deleteQueue(message.guildId);
+               await player.queues.delete(message.guildId);
 
                const NoVoiceEmbed = new EmbedBuilder()
                     .setAuthor({ name: `Mình không thể kết nối được với voice channel.... thử lại ? ❌` })
                     .setColor('0xFF0000')
 
-               await message.reply({ embeds: [NoVoiceEmbed] });
+               return await message.reply({ embeds: [NoVoiceEmbed] });
           }
           const track = res.tracks[0]; //Track
-          queue.addTrack(track);
+          queue.addTrack(res.tracks);
 
           if (!queue.isPlaying()) {
                await queue.node.play();

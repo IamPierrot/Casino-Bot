@@ -1,6 +1,10 @@
-const { EmbedBuilder } = require('discord.js');
-const userModel = require('../../database/models/user.js');
+const { EmbedBuilder, Collection } = require('discord.js');
 const balanceModel = require('../../database/models/balanceModel');
+const getAllFile = require('../getAllFiles.js');
+const getLocalCommand = require('../getLocalCommands.js');
+const getTextCommand = require('../getTextCommands.js');
+const prefixModel = require('../../database/models/prefixModel.js');
+// const djRoleModel = require('../../database/models/dJRoleModel.js');
 
 /**
  * 
@@ -8,6 +12,8 @@ const balanceModel = require('../../database/models/balanceModel');
  */
 
 module.exports = (client) => {
+     client.components = new Collection();
+     client.timeStampUser = new Collection();
      ////////////////////////// check Id yêu cầu nhạc
 
      client.checkIdRequest = (track, userId) => {
@@ -22,9 +28,19 @@ module.exports = (client) => {
 
      ///////////////////////// Freefire
 
-
-
-
+     client.getFiles = (directory, foldersOnly) => getAllFile(directory, foldersOnly);
+     client.getPrefixCommands = (exeption) => getTextCommand(exeption);
+     client.getSlashCommands = (exeption) => getLocalCommand(exeption);
+     client.getPrefix = async (guildId) => {
+          const prefixData = await prefixModel.findOne({ guildId: guildId });
+          if (!prefixData) return null;
+          return prefixData;
+     }
+     // client.checkDjRole = async (userId, guildId) => {
+     //      const dJRoleData = await djRoleModel.findOne({ userId: userId, guildId: guildId });
+     //      if (!dJRoleData) return false;
+     //      return true;
+     // }
 
      //////////////////////// Balance
      client.xemTien = (userId) => new Promise(async ful => {
@@ -53,7 +69,7 @@ module.exports = (client) => {
                if (!data) data = new balanceModel({
                     userId: userId,
                });
-               else if (data.money >= soTien) data.money -= soTien;
+               if (data.money >= soTien) data.money -= soTien;
                await data.save();
 
           } catch (err) {

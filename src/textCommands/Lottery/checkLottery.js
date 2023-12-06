@@ -4,6 +4,7 @@ const xoSoUserModel = require("../../database/models/xoSoUserModel");
 module.exports = {
      name: 'veso',
      aliases: ['vs'],
+     description: "Xem vé số người dùng",
      /**
       * 
       * @param {Client} client 
@@ -16,23 +17,16 @@ module.exports = {
                data = new xoSoUserModel({
                     userId: message.author.id,
                     soLuong: []
-               })
+               });
           }
-          let amount = data.soLuong.length
+          const amount = data.soLuong.length;
 
-          let amountEmbed
-          if (amount > 0) {
-               amountEmbed = new EmbedBuilder()
-                    .setTitle(`BẠN ĐANG CÓ ${amount} VÉ SỐ`)
-                    .setDescription(`${data.soLuong.map((a, index) => `**${index + 1}.** ${a}`).join('\n')}`)
-                    .setColor('Gold')
-                    .setTimestamp()
-          } else {
-               amountEmbed = new EmbedBuilder()
-                    .setTitle(`BẠN ĐANG CÓ ${amount} VÉ SỐ`)
-                    .setColor('Gold')
-                    .setTimestamp()
-          }
-          await message.reply({ embeds: [amountEmbed] })
+          const amountEmbed = new EmbedBuilder()
+               .setTitle(`BẠN ĐANG CÓ ${amount} VÉ SỐ`)
+               .setColor('Gold')
+               .setTimestamp();
+
+          amount > 0 ? amountEmbed.setDescription(`${data.soLuong.map((a, index) => `**${index + 1}.** ${a}`).join('\n')}`) : () => {};
+          await message.reply({ embeds: [amountEmbed] });
      }
 }

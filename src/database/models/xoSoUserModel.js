@@ -5,6 +5,6 @@ const xoSoUserSchema = new mongoose.Schema({
     soLuong: [String]
 });
 
-const xoSoUserModel = mongoose.model('xosouser', xoSoUserSchema)
+const xoSoUserModel = mongoose.model('xosouser', xoSoUserSchema);
 
 module.exports = xoSoUserModel
